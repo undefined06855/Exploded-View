@@ -1,0 +1,42 @@
+{
+    "geode": "5.7.1",
+    "gd": {
+        "win": "2.2081",
+        "android": "2.2081",
+        "mac": "2.2081",
+        "ios": "2.2081"
+    },
+
+    "version": "v1.0.0",
+    "id": "undefined0.exploded-view",
+    "name": "Exploded View",
+    "developer": "undefined0",
+    "description": "Navigate your editor layers in 3D!",
+    "tags": [],
+
+    "links": {
+        "source": "https://github.com/undefined06855/Exploded-View"
+    },
+
+    "resources": {
+        "files": [ "resources/*.obj" ]
+    },
+
+    "dependencies": {
+        "undefined0.3d-api": "v1.0.0",
+        "alphalaneous.alphas-ui-pack": "v1.1.1",
+        "geode.devtools": {
+            "version": "v1.14.0",
+            "required": false
+        }
+    },
+
+    "settings": {
+        "explode-keybind": {
+            "type": "keybind",
+            "name": "Open Exploded View",
+            "default": "/",
+            "category": "editor"
+        }
+    }
+}
