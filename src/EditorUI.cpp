@@ -18,3 +18,9 @@ bool HookedEditorUI::init(LevelEditorLayer* editor) {
 
     return true;
 }
+
+// prevent selecting anything while popup is open
+bool HookedEditorUI::canSelectObject(GameObject* object) {
+    if (ExplodedLayerPopup::get()) return false;
+    else return EditorUI::canSelectObject(object);
+}

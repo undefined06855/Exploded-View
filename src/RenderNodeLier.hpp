@@ -1,5 +1,6 @@
 #pragma once
 
+// pants on fire
 class RenderNodeLier : public cocos2d::CCNode {
 public:
     static RenderNodeLier* create(geode::Function<void()> callback);

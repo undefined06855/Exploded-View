@@ -3,4 +3,5 @@
 
 class $modify(HookedEditorUI, EditorUI) {
     bool init(LevelEditorLayer* editor);
+    bool canSelectObject(GameObject* object);
 };

@@ -8,23 +8,41 @@ struct ShitPair {
     geode::Ref<alpha::ui::RenderNode> renderNode;
 };
 
+enum class LayersType {
+    EditorLayers, VisualLayers
+};
+
 class ExplodedLayerPopup : public geode::Popup {
 public:
+    static ExplodedLayerPopup* get();
     static ExplodedLayerPopup* create();
     virtual bool init() override;
 
+    virtual void onEnter() override;
     virtual void onClose(cocos2d::CCObject* sender) override;
 
     LevelEditorLayer* m_editor;
+    EditorUI* m_editorUI;
     int m_oldEditorMode;
+    float m_oldEditorToolbarHeight;
+    std::vector<geode::Ref<GameObject>> m_oldSelectedObjects;
+
+    geode::Ref<ThreeDeeAPI::ThirdDimensionNode> m_bg;
+    ThreeDeeAPI::ThirdDimensionObject* m_bgCube;
+    geode::Ref<RenderNodeLier> m_bgLier;
+    geode::Ref<RenderNodeLier> m_groundLier;
+    geode::Ref<alpha::ui::RenderNode> m_editorBGRenderNode;
+    geode::Ref<alpha::ui::RenderNode> m_editorGroundRenderNode;
 
     geode::Ref<RenderNodeLier> m_lier;
     ThreeDeeAPI::ThirdDimensionNode* m_3dNode;
-    std::unordered_map<int, ShitPair> m_layers;
+    std::map<int, ShitPair> m_layers;
     cocos2d::CCLabelBMFont* m_layerLabel;
 
-    int m_currentLayer;
+    int m_currentLayer; // for sharing info between frames
+    bool m_currentLayerHasObjects;
     std::vector<cocos2d::CCNode*> m_cachedGameplayNodes;
+    LayersType m_currentLayersType;
 
     float m_layerOffset;
     float m_layerGap;
@@ -34,8 +52,14 @@ public:
     virtual void ccTouchEnded(cocos2d::CCTouch* touch, cocos2d::CCEvent* event) override;
     virtual void ccTouchCancelled(cocos2d::CCTouch* touch, cocos2d::CCEvent* event) override;
     virtual void scrollWheel(float y, float x) override;
+    virtual void keyDown(cocos2d::enumKeyCodes key, double timestamp) override;
+    virtual void keyUp(cocos2d::enumKeyCodes key, double timestamp) override;
+
+    void updateLayersMap();
 
     virtual void update(float dt) override;
     virtual void draw() override;
     void drawObjectLayers();
+    void drawBackground();
+    void drawGround();
 };
