@@ -30,9 +30,12 @@ bool ExplodedLayerPopup::init() {
     // TODO: fix whatever fuuucked up perspective we have rn like get an actually good one please thanks
     m_3dNode = ThreeDeeAPI::ThirdDimensionNode::create();
     m_3dNode->setID("3d-node");
-    m_3dNode->setCameraAim({ 84.f, 53.f, -199.f });
-    m_3dNode->setCameraPosition({ 242.f, 254.f, 57.f });
-    m_3dNode->setCameraFOV(70.f);
+    // m_3dNode->setCameraAim({ 84.f, 53.f, -199.f });
+    // m_3dNode->setCameraPosition({ 242.f, 254.f, 57.f });
+    // m_3dNode->setCameraFOV(70.f);
+    m_3dNode->setCameraAim({ 112.f, 5.f, -199.f });
+    m_3dNode->setCameraPosition({ 147.f, 53.f, 5.f });
+    m_3dNode->setCameraFOV(120.f);
     m_3dNode->setFlipY(true);
 
     m_layerLabel = cocos2d::CCLabelBMFont::create("...", "bigFont.fnt");
@@ -41,12 +44,11 @@ bool ExplodedLayerPopup::init() {
     m_mainLayer->addChild(m_layerLabel);
 
     // TODO: make this be customisable or something?
-    m_layerGap = 30.f;
-    m_layerOffset = 58.f;
+    m_layerGap = 23.f;
+    m_layerOffset = 5.f;
 
     // TODO: save and load this shit
-    m_currentLayersType = LayersType::EditorLayers;
-    this->updateLayersMap();
+    m_currentLayersType = LayersType::VisualLayers;
 
     m_mainLayer->addChildAtPosition(m_3dNode, geode::Anchor::Center);
 
@@ -116,6 +118,7 @@ bool ExplodedLayerPopup::init() {
         m_currentLayersType = which;
         this->updateLayersMap();
     });
+    radio.select(m_currentLayersType);
 
     m_buttonMenu->addChildAtPosition(editorLayers, geode::Anchor::TopRight, { -132.f, -25.f });
     m_buttonMenu->addChildAtPosition(visualLayers, geode::Anchor::TopRight, { -132.f, -57.f });
@@ -346,7 +349,7 @@ void ExplodedLayerPopup::draw() {
         // remember -z is out of the camera and +z is towards the camera
         data.object->setVisible(false);
         if (data.object->getPositionZ() > 0.f) continue; // planes too close
-        if (data.object->getPositionZ() < -m_layerGap * 7.f) continue; // planes too far
+        if (data.object->getPositionZ() < -m_layerGap * 14.f) continue; // planes too far
         data.object->setVisible(true);
 
         m_currentLayerHasObjects = false;
